@@ -11,7 +11,7 @@ namespace Seminar2.Expression
     internal static class Converter
     {
         private static int GetPriority(this LayerElement element) =>
-            element.Element switch
+            element.Value switch
             {
                 "+" => 1,
                 "-" => 1,
@@ -22,24 +22,20 @@ namespace Seminar2.Expression
         public static string ConvertToInfixNotation(LayerElement[] elements)
         {
             var result = new StringBuilder();
-            result.Append(elements[0].Element);
+            result.Append(elements[0].Value);
             var priority = 0;
             for (var i = 2; i < elements.Length; i += 2)
             {
-                var element = elements[i].Element;
-                var sing = elements[i-1];
-                if (priority == 0 || sing.GetPriority() <= priority)
-                {
-                    result.Append(sing.Element + element);
-                    priority = sing.GetPriority();
-                }
+                var element = elements[i].Value;
+                var elementOperator = elements[i-1];
+                if (priority == 0 || elementOperator.GetPriority() <= priority)
+                    result.Append(elementOperator.Value + element);
                 else
                 {
                     result.Insert(0, "(");
-                    result.Append(")");
-                    result.Append(sing.Element + element);
-                    priority = sing.GetPriority();
+                    result.Append(")" + elementOperator.Value + element);
                 }
+                priority = elementOperator.GetPriority();
             }
 
             return result.ToString();

@@ -22,12 +22,12 @@ namespace Seminar2.Expression
 
         public ReadOnlyCollection<int> Elements => Array.AsReadOnly(_expressionElements);
 
-        private void ParseNumber(LayerElement element, LayerElement sing)
+        private void ParseNumber(LayerElement element, LayerElement elementOperator)
         {
             if (element.ElementType != LayerElement.Type.Number)
                 throw new ArgumentException("Invalid input element type");
-            var convertedElement = int.Parse(element.Element);
-            switch (sing.Element)
+            var convertedElement = int.Parse(element.Value);
+            switch (elementOperator.Value)
             {
                 case "+":
                     _expressionElements[0] += convertedElement;
@@ -42,9 +42,9 @@ namespace Seminar2.Expression
             }
         }
 
-        private void ParseVariable(LayerElement sing)
+        private void ParseVariable(LayerElement elementOperator)
         {
-            switch (sing.Element)
+            switch (elementOperator.Value)
             {
                 case "+":
                     _expressionElements[1] += 1;
@@ -60,17 +60,17 @@ namespace Seminar2.Expression
             }
         }
 
-        private void Parse(LayerElement element, LayerElement sing)
+        private void Parse(LayerElement element, LayerElement elementOperator)
         {
-            if (sing.ElementType != LayerElement.Type.Operator)
+            if (elementOperator.ElementType != LayerElement.Type.Operator)
                 throw new ArgumentException("Invalid input elements type");
             switch (element.ElementType)
             {
                 case LayerElement.Type.Number:
-                    ParseNumber(element, sing);
+                    ParseNumber(element, elementOperator);
                     break;
                 case LayerElement.Type.Variable:
-                    ParseVariable(sing);
+                    ParseVariable(elementOperator);
                     break;
                 case LayerElement.Type.Operator:
                 default:

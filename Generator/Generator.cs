@@ -3,7 +3,7 @@
     internal class Generator
     {
         private readonly Layer[] _layers;
-        private readonly HashSet<Expression.Expression> _expressions = new();
+        private readonly HashSet<Expression.Expression> _expressions = [];
 
         public Generator(int expressionSize)
         {

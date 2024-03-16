@@ -1,6 +1,6 @@
 ﻿namespace Seminar2.Generator
 {
-    internal class LayerElement (string element, LayerElement.Type type)
+    internal class LayerElement (string value, LayerElement.Type type)
     {
         public enum Type
         {
@@ -10,6 +10,6 @@
         }
 
         public Type ElementType { get; } = type;
-        public string Element { get; } = element;
+        public string Value { get; } = value;
     }
 }
