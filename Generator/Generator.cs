@@ -3,7 +3,7 @@
     internal class Generator
     {
         private readonly Layer[] _layers;
-        private readonly List<Expression.Expression> _expressions = new();
+        private readonly HashSet<Expression.Expression> _expressions = new();
 
         public Generator(int expressionSize)
         {
@@ -31,8 +31,8 @@
                     if (currentLevel == _layers.Length - 1)
                     {
                         var expression = new Expression.Expression(exp);
-                        _expressions.Add(expression);
-                        yield return expression;
+                        if (_expressions.Add(expression))
+                            yield return expression;
                     }
                 }
                 else
